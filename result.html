@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ML project output</title>
+    <style>
+      p {
+        display: flex;
+        width: 70%;
+        margin: auto;
+      }
+
+      table {
+        width: 100%;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid;
+        width: 70%;
+        margin: auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>ML project output</h1>
+    <p>
+      <ul>
+        <li> <b>Proposal:</b> <a href="proposal.pdf"> link </a> </li>
+        <li> <b>Report:</b> <a href="results.pdf"> link </a></li>
+      </ul>
+    </p>
+    <p>
+      <span>Number of features:</span>
+      <input type="range" min="1" max="4" value="1" id="parameterCountRange" />
+      <span id="parameterCountText">1</span>
+    </p>
+
+    <p>The subsets of features of given size with the best accuracy:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Order</th>
+          <th>Attributes</th>
+          <th>Accuracy</th>
+        </tr>
+      </thead>
+      <tbody id="tableResults"></tbody>
+    </table>
+
+    <img
+      src="./matplotlib.png"
+      alt="Graph"
+      style="width: 50%; margin: auto; display: flex"
+    />
+
+    <p>
+      The results in the table above are based on our results from attribute selection through iteration - iterate over all subsets of features of given size and pick the one with the best accuracy.
+      <br />
+      The plot shows the results from t-SNE dimensionality reduction. The data points are colored by the mainhue they have in the dataset. The plot shows not satisfactory results, as the data points are not clearly clustered by the mainhue. We discuss this more in the report.
+  </body>
+
+  <script>
+    const data = {
+      1: [
+        {
+          order: 1,
+          attrs: ['area'],
+          accuracy: 0.7989690721649485,
+        },
+        {
+          order: 2,
+          attrs: ['population'],
+          accuracy: 0.4948453608247423,
+        },
+        {
+          order: 3,
+          attrs: ['landmass'],
+          accuracy: 0.4536082474226804,
+        },
+      ],
+      2: [
+        {
+          order: 1,
+          attrs: ['area', 'language'],
+          accuracy: 0.8917525773195877,
+        },
+        {
+          order: 2,
+          attrs: ['landmass', 'area'],
+          accuracy: 0.8865979381443299,
+        },
+        {
+          order: 3,
+          attrs: ['landmass', 'area'],
+          accuracy: 0.8865979381443299,
+        },
+      ],
+      3: [
+        {
+          order: 1,
+          attrs: ['area', 'language', 'sunstars'],
+          accuracy: 0.9587628865979382,
+        },
+        {
+          order: 2,
+          attrs: ['area', 'colours', 'sunstars'],
+          accuracy: 0.9484536082474226,
+        },
+        {
+          order: 3,
+          attrs: ['landmass', 'area', 'sunstars'],
+          accuracy: 0.9432989690721649,
+        },
+      ],
+      4: [
+        {
+          order: 1,
+          attrs: ['area', 'language', 'stripes', 'sunstars'],
+          accuracy: 0.979381443298969,
+        },
+        {
+          order: 2,
+          attrs: ['area', 'language', 'colours', 'sunstars'],
+          accuracy: 0.9742268041237113,
+        },
+        {
+          order: 3,
+          attrs: ['area', 'language', 'gold', 'sunstars'],
+          accuracy: 0.9742268041237113,
+        },
+      ],
+    };
+
+    const parameterCountRange = document.getElementById('parameterCountRange');
+    const parameterCountText = document.getElementById('parameterCountText');
+    const tableResults = document.getElementById('tableResults');
+
+    const onParameterCountChange = (e) => {
+      parameterCountText.textContent = e.target.value;
+
+      tableResults.innerHTML = '';
+      const results = data[e.target.value];
+      results.forEach((result) => {
+        const row = document.createElement('tr');
+
+        const order = document.createElement('td');
+        order.textContent = result.order;
+        row.appendChild(order);
+
+        const attrs = document.createElement('td');
+        attrs.textContent = result.attrs.join(', ');
+        row.appendChild(attrs);
+
+        const accuracy = document.createElement('td');
+        const decimals = 3;
+        accuracy.textContent = Math.round(result.accuracy * 10 ** (decimals + 2)) / 10 ** decimals + ' %';
+        row.appendChild(accuracy);
+
+        tableResults.appendChild(row);
+      });
+    };
+
+    document.getElementById('parameterCountRange').oninput = onParameterCountChange;
+    onParameterCountChange({ target: { value: 1 } });
+  </script>
+</html>

@@ -1,0 +1,25 @@
+class distribution:
+    red       36.597938
+    blue      20.618557
+    green     15.979381
+    white     11.340206
+    gold       9.793814
+    black      2.577320
+    orange     2.061856
+    brown      1.030928
+
+Number of features: 1,  best attributes ['area'] accuracy 0.7989690721649485
+Number of features: 1, second best attributes ['population'] accuracy 0.4948453608247423
+Number of features: 1, third best attributes ['landmass'] accuracy 0.4536082474226804
+
+Number of features: 2,  best attributes ['area', 'language'] accuracy 0.8917525773195877
+Number of features: 2, second best attributes ['landmass', 'area'] accuracy 0.8865979381443299
+Number of features: 2, third best attributes ['area', 'religion'] accuracy 0.8865979381443299
+
+Number of features: 3,  best attributes ['area', 'language', 'sunstars'] accuracy 0.9587628865979382
+Number of features: 3, second best attributes ['area', 'colours', 'sunstars'] accuracy 0.9484536082474226
+Number of features: 3, third best attributes ['landmass', 'area', 'sunstars'] accuracy 0.9432989690721649
+
+Number of features: 4,  best attributes ['area', 'language', 'stripes', 'sunstars'] accuracy 0.979381443298969
+Number of features: 4, second best attributes ['area', 'language', 'colours', 'sunstars'] accuracy 0.9742268041237113
+Number of features: 4, third best attributes ['area', 'language', 'gold', 'sunstars'] accuracy 0.9742268041237113
